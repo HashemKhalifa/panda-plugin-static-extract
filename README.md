@@ -2,8 +2,6 @@
 
 Auto-generate Panda CSS `staticCss` values by scanning component-boundary usage (like wrappers using `.raw()`), then inject them at Panda `config:resolved` time.
 
-This package is extracted from a production implementation in MMS/PANDA.
-
 ## Why this exists
 
 Panda can miss values across component boundaries. Example: a wrapper component calls `flex.raw({ ...props })` internally, and consumers pass dynamic/conditional/responsive JSX props. This plugin adds a pre-scan that resolves those values before Panda CSS generation.
@@ -98,7 +96,7 @@ Auto-detection defaults:
 - workspace root markers: `pnpm-workspace.yaml`, `nx.json`, `turbo.json`, `lerna.json`, `.git`
 - scan roots: `libs/apps`, then `packages/apps`, then `packages`, then `src`
 - breakpoints file candidates:
-  - `src/presets/mms-preset-base/breakpoints.ts`
+  - `src/presets/breakpoints.ts`
   - `src/theme/breakpoints.ts`
   - `src/breakpoints.ts`
 - color palette file candidates:
@@ -124,9 +122,9 @@ Generated JSON example:
 }
 ```
 
-## MMS benchmark snapshot
+## Benchmark snapshot
 
-Fair comparison from the production PANDA repo (same include paths; only staticCss strategy changed):
+Manual staticCss vs auto-extraction (same include paths; only staticCss strategy changed):
 
 | Metric | Manual staticCss | Auto extraction |
 | --- | --- | --- |
@@ -141,7 +139,7 @@ Main gain came from removing wildcard over-generation and generating only observ
 
 Implemented end-to-end:
 
-- scanner modules ported from production script
+- scanner modules fully implemented
 - plugin injection with schema checks
 - CLI `scan/audit/watch`
 - deterministic write behavior
