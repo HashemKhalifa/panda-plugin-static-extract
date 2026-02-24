@@ -1,0 +1,51 @@
+{
+  "name": "panda-plugin-static-extract",
+  "version": "0.1.0",
+  "description": "Auto-generate Panda CSS staticCss values by scanning component-boundary usage (.raw()), with watch mode and zero-config monorepo support.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "bin": {
+    "panda-static-extract": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "echo \"No lint config yet\""
+  },
+  "keywords": [
+    "panda",
+    "pandacss",
+    "staticcss",
+    "plugin",
+    "css"
+  ],
+  "peerDependencies": {
+    "@pandacss/dev": ">=0.36.0",
+    "@pandacss/types": ">=0.36.0"
+  },
+  "dependencies": {
+    "@swc/core": "^1.7.47"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}
