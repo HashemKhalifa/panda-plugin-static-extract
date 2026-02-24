@@ -1,0 +1,1 @@
+# panda-plugin-static-extract
