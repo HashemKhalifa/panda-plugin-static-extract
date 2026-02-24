@@ -3,10 +3,21 @@
   "version": "0.1.0",
   "description": "Auto-generate Panda CSS staticCss values by scanning component-boundary usage (.raw()), with watch mode and zero-config monorepo support.",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HashemKhalifa/panda-plugin-static-extract.git"
+  },
+  "homepage": "https://github.com/HashemKhalifa/panda-plugin-static-extract#readme",
+  "bugs": {
+    "url": "https://github.com/HashemKhalifa/panda-plugin-static-extract/issues"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,12 +31,18 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "verify": "pnpm typecheck && pnpm test && pnpm build",
+    "release": "semantic-release",
     "lint": "echo \"No lint config yet\""
   },
   "keywords": [
@@ -43,7 +60,15 @@
     "@swc/core": "^1.7.47"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.6",
+    "@semantic-release/npm": "^13.1.4",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@types/node": "^22.13.14",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "semantic-release": "^25.0.3",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"

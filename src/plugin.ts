@@ -51,6 +51,20 @@ export const staticExtractPlugin = (options: StaticExtractOptions = {}): PandaPl
         const nonResponsiveProps = data.nonResponsive ?? {}
         const existingCss = config.staticCss?.css ?? []
         const autoRules: CssRule[] = []
+        const responsiveCount = Object.values(responsiveProps).reduce((sum, values) => sum + values.length, 0)
+        const nonResponsiveCount = Object.values(nonResponsiveProps).reduce(
+          (sum, values) => sum + values.length,
+          0
+        )
+
+        if (responsiveCount === 0 && nonResponsiveCount === 0) {
+          const message =
+            '[panda-static-extract] Generated file contains zero staticCss values. ' +
+            'Run scanner before Panda build.'
+          if (resolvedOptions.strict) throw new Error(message)
+          console.warn(message)
+          return
+        }
 
         if (Object.keys(responsiveProps).length > 0) {
           autoRules.push({ responsive: true, properties: responsiveProps })
@@ -61,6 +75,13 @@ export const staticExtractPlugin = (options: StaticExtractOptions = {}): PandaPl
         }
 
         if (autoRules.length === 0) return
+
+        if (resolvedOptions.verbose) {
+          console.log(
+            `[panda-static-extract] Injecting ${responsiveCount} responsive + ` +
+              `${nonResponsiveCount} static values`
+          )
+        }
 
         return {
           ...config,
